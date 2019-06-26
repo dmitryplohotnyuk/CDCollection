@@ -22,23 +22,23 @@ class Card implements CardInterface
         $this->connection = Connection::getConnection();
     }
 
-    public function insert(): void
+    public function insert(): Bool
     {
-       mysqli_query($connection, "INSERT INTO cards (cover, title, artist, year, duration, purchase_date, cost, code) 
+       return mysqli_query($this->connection, "INSERT INTO cards (cover, title, artist, year, duration, purchase_date, cost, code) 
                     VALUES ($this->cover, $this->title, $thist->artist, $this->year, $this->duration, 
                     $thist->purchase_date, $this->cost, $this->code");
     }
 
-    public function update(): void
+    public function update(): Bool
     {
-        mysqli_query($connection, "UPDATE cards SET cover = $this->cover, title = $this->title, artist = $this->artist, 
-                    year = $this->year, duration = $this->duration, purchase_date = $this->purchase_date, 
-                    cost = $this->cost, code = $this->code WHERE id = $this->id");
+        return mysqli_query($this->connection, "UPDATE cards SET cover = '$this->cover', title = '$this->title', artist = '$this->artist', 
+                    year = '$this->year', duration = '$this->duration', purchase_date = '$this->purchase_date', 
+                    cost = '$this->cost', code = '$this->code' WHERE id = $this->id");
     }
 
-    public function delete(): void
+    public function delete(): Bool
     {
-       mysqli_query($connection, "DELETE FROM cards WHERE id = $this->id");
+       return mysqli_query($this->connection, "DELETE FROM cards WHERE id = $this->id");
     }
 
     public function setInfo(Array $props): void
@@ -49,7 +49,7 @@ class Card implements CardInterface
         $this->artist = $props['artist'];
         $this->year = $props['year'];
         $this->duration = $props['duration'];
-        $this->purchase_date = $props['purchace_date'];
+        $this->purchase_date = $props['purchase_date'];
         $this->cost = $props['cost'];
         $this->code = $props['code'];
     }
@@ -57,7 +57,7 @@ class Card implements CardInterface
     public function getInfo(): Array
     {
        $result = ['id' => $this->id, 'cover' => $this->cover, 'title' => $this->title, 
-                'artist' => $this->artist, 'yaer' => $this->year, 'duration' => $this->duration, 
+                'artist' => $this->artist, 'year' => $this->year, 'duration' => $this->duration, 
                 'purchase_date' => $this->purchase_date, 'cost' => $this->cost, 'code' => $this->code];
         return $result;
     }

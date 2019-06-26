@@ -17,4 +17,17 @@ class Collection implements CollectionInterface
         }
         return $cards;
     }
+
+    public static function getById(string $id): Card
+    {
+        $connection = Connection::getConnection();
+        $query = "SELECT * FROM cards WHERE id = $id";
+        if ($result = mysqli_query($connection, $query)) {
+            while ($props = $result->fetch_assoc()) {
+                $card = new Card($props);
+            }
+            $result->free();
+        }
+        return $card;
+    }
 }

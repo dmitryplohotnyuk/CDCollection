@@ -6,6 +6,11 @@ spl_autoload_register(function ($class) {
     require $classFilename;
 });
 
-$collection = \CDCollection\Collection::getAll();
+define('DEFAULT_CONTROLLER', 'GetAll');
 
-var_dump($collection);
+$controller = $_GET['controller'] ?? DEFAULT_CONTROLLER;
+$controller = file_exists('controllers/' . $controller . '.php') 
+    ? $controller
+    : DEFAULT_CONTROLLER;
+
+include_once('controllers/' . $controller . '.php');
